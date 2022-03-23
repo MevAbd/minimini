@@ -16,7 +16,7 @@
 
 int	nb_cmd(t_parser *pars)
 {
-	int		i;
+	int			i;
 	t_parser	*cpy;
 
 	cpy = pars;
@@ -31,14 +31,14 @@ int	nb_cmd(t_parser *pars)
 
 char	**get_env(t_cmd *env)
 {
-	int	size;
-	int	i;
+	int		size;
+	int		i;
 	char	**ret;
 	t_cmd	*cpy;
 
 	cpy = env;
 	size = 0;
-	while(cpy)
+	while (cpy)
 	{
 		cpy = cpy->next;
 		size++;
@@ -54,7 +54,7 @@ char	**get_env(t_cmd *env)
 		cpy = cpy->next;
 		i++;
 	}
-	return (ret);	
+	return (ret);
 }
 
 void	free_tab(char **env)

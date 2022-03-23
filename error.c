@@ -14,7 +14,7 @@
 #include "lexer.h"
 
 static const char	*g_err[]
-= {
+= { 
 	"",
 	"Malloc error !",
 	"Synthax error !",

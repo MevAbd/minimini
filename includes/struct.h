@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 # include <signal.h>
 # include <sys/wait.h>
 # include <sys/types.h>
@@ -71,7 +72,7 @@ typedef struct s_redir
 
 typedef struct s_parser
 {
-	int			pid;
+	int				pid;
 	t_cmd			*cmd;
 	t_redir			*redir;
 	struct s_parser	*next;
@@ -83,9 +84,11 @@ typedef struct s_msh
 	t_parser	*pars;
 	char		**path;
 	char		**cmd;
-	int		fd_in;
-	int		fd_out;
-	int		size;
+	char		**tab_env;
+	int			pipefd[2];
+	int			fd_in;
+	int			fd_out;
+	int			size;
 }			t_msh;
 
 void	reset_error(void);

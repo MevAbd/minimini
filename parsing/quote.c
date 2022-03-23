@@ -175,7 +175,6 @@ void	quote_manage(t_lexer **lexer, t_cmd *env)
 	{
 		if (cpy->type == WORD)
 		{
-			printf("quote : %s\n", cpy->s);
 			i = 0;
 			while (cpy->s[i] != '\0')
 			{
@@ -190,22 +189,13 @@ void	quote_manage(t_lexer **lexer, t_cmd *env)
 					verif = ft_strlen(cpy->s);
 					i = normal_manage(&cpy, i, env);
 					test_quote(i, j, cpy->s);
-					if (verif == ft_strlen(cpy->s));
-					{
-						printf("t1\n");
+					if (verif == ft_strlen(cpy->s))
 						break ;
-					}
 				}
 				if (i == ft_strlen(cpy->s) || i == ft_strlen(cpy->s) - 1)
-				{
-					printf("t2\n");
 					break ;
-				}
 				if (get_error() != SUCCESS)
-				{
-					printf("t3\n");
 					break ;
-				}
 			}	
 		}
 		if (get_error() != SUCCESS)

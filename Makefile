@@ -13,7 +13,9 @@ SRC =	main.c \
 		replace_dol.c \
 		fork.c \
 		fork_util.c \
-		split.c
+		util.c \
+		split.c \
+		pwd.c
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,${SRC})
 OBJ_DIR	= objs/
@@ -21,9 +23,10 @@ LEXER_DIR = lexer/
 PARS_DIR = parsing/
 LIB_DIR = lib/
 FORK_DIR = fork/
+BUILT_DIR = builtin/
 INCLUDES_DIR = includes/
 
-VPATH	= $(LEXER_DIR) $(LIB_DIR) $(PARS_DIR) $(FORK_DIR)
+VPATH	= $(LEXER_DIR) $(LIB_DIR) $(PARS_DIR) $(FORK_DIR) $(BUILT_DIR)
 
 FLAGS = -g
 
