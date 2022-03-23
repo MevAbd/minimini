@@ -1,0 +1,38 @@
+void	expand_var(char **s)
+{
+	char	*cpy;
+	int		i;
+
+	cpy = *s;
+	i = 0;
+	while (cpy[i] !+ '\0')
+	{
+		if (cpy[i] == '\'')
+		{
+			i++;
+			while (cpy[i] != '\0' && cpy[i] != '\'')
+				i++;
+		}
+		else if (cpy[i] == '$')
+			expand(cpy, i);
+		else
+			i++;
+	}
+	*s = cpy;
+}
+
+ABC="ls -la"
+
+echo $ABC
+
+>> echo ls -la
+
+echo
+ls
+-la
+
+echo
+ls
+-la
+
+
