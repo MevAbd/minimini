@@ -98,8 +98,8 @@ int	main(int ac, char **av, char **envp)
 		{
 			add_history(str);
 			parsing(str, &msh);
-			if (get_error() == SUCCESS)
-				print_parser(msh->pars, msh);
+//			if (get_error() == SUCCESS)
+//				print_parser(msh->pars, msh);
 		}
 		free_parser(&msh->pars);
 		free(msh->pars);

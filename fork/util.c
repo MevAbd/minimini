@@ -21,6 +21,7 @@ void	init_msh(t_msh **msh)
 	(*msh)->fd_in = STDIN_FILENO;
 	(*msh)->fd_out = STDOUT_FILENO;
 	(*msh)->tab_env = get_env((*msh)->env);
+	(*msh)->cmd = NULL;
 }
 
 void	free_wait_pid(t_msh **msh)

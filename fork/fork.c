@@ -16,14 +16,30 @@
 #include "fork.h"
 #include "builtin.h"
 
+static int	compare(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+		i++;
+	if (s1[i] == '\0' && s2[i] == '\0')
+		return (0);
+	return (1);
+}
+
 static int	builtin(t_parser *cmd, t_msh **msh)
 {
-	if (ft_strncmp(cmd->cmd->s, "pwd\0", ft_strlen("pwd\0")) == 0)
-	{
-		ft_pwd(cmd, msh);
-		return (1);
-	}
-	return (0);
+	int	ret;
+
+	ret = -1;
+	if (compare(cmd->cmd->s, "pwd\0") == 0)
+		ret = ft_pwd(cmd, msh);
+	else if (compare(cmd->cmd->s, "env\0") == 0)
+		ret = ft_exc_env(cmd, msh);
+	else if (compare(cmd->cmd->s, "cd\0") == 0)
+		ret = ft_exc_cd(cmd, msh);
+	return (ret);
 }
 
 void	search_cmd(t_msh **msh)
@@ -38,7 +54,7 @@ void	search_cmd(t_msh **msh)
 	while (i < (*msh)->size)
 	{
 		manage_pipefd(msh, &i, 0);
-		if (builtin(cpy, msh) == 0)
+		if (builtin(cpy, msh) == -1)
 		{
 			(*msh)->path = get_path(msh);
 			(*msh)->cmd = get_env(cpy->cmd);
@@ -50,12 +66,11 @@ void	search_cmd(t_msh **msh)
 				print_error(ERR_CMD);
 				break ;
 			}
+			free_tab((*msh)->cmd);
+			free_tab((*msh)->path);
 		}
 		manage_pipefd(msh, &i, 1);
 		cpy = cpy->next;
-		free_tab((*msh)->cmd);
-		if ((*msh)->path != NULL)
-			free_tab((*msh)->path);
 	}
 	free_wait_pid(msh);
 }

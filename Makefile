@@ -15,7 +15,9 @@ SRC =	main.c \
 		fork_util.c \
 		util.c \
 		split.c \
-		pwd.c
+		pwd.c \
+		cd.c \
+		env.c
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,${SRC})
 OBJ_DIR	= objs/

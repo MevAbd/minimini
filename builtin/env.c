@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 02:31:26 by malbrand          #+#    #+#             */
-/*   Updated: 2022/02/23 22:42:20 by malbrand         ###   ########.fr       */
+/*   Created: 2022/02/22 07:18:13 by malbrand          #+#    #+#             */
+/*   Updated: 2022/02/24 00:13:39 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "struct.h"
 
-# include "struct.h"
+int	ft_exc_env(t_parser *cpy, t_msh **msh)
+{
+	t_cmd	*env;
 
-int	ft_pwd(t_parser *cmd, t_msh **msh);
-int	ft_exc_cd(t_parser *cmd, t_msh **msh);
-int	ft_exc_env(t_parser *cmd, t_msh **msh);
-
-#endif
+	env = (*msh)->env;
+	if (cpy->cmd->next != NULL)
+	{
+		write((*msh)->fd_out, "with no arg or option\n", 22);
+		return (127);
+	}
+	while (env)
+	{
+		write((*msh)->fd_out, env->s, ft_strlen(env->s));
+		write((*msh)->fd_out, "\n", 1);
+		env = env->next;
+	}
+	return (0);
+}
