@@ -50,11 +50,35 @@ static int	builtin(t_parser *cmd, t_msh **msh)
 	return (ret);
 }
 
+static int	exc_cmd(t_msh **msh)
+{
+	int			j;
+	t_parser	*cpy;
+
+	cpy = (*msh)->pars;
+	(*msh)->path = get_path(msh);
+	if ((*msh)->path == NULL)
+		return (-1);
+	(*msh)->cmd = get_env(cpy->cmd);
+	j = test_access(msh, (*msh)->cmd);
+	if (j > 0)
+		cmd_fork(msh, cpy, j);
+	else
+	{
+		print_error(ERR_CMD);
+		free_tab((*msh)->cmd);
+		free_tab((*msh)->path);
+		return (-1);
+	}
+	free_tab((*msh)->cmd);
+	free_tab((*msh)->path);
+	return (0);
+}
+
 void	search_cmd(t_msh **msh)
 {
 	int			i;
-	int			j;
-	int 		built;
+	int			built;
 	t_parser	*cpy;
 
 	i = 0;
@@ -68,22 +92,8 @@ void	search_cmd(t_msh **msh)
 			exit (EXIT_SUCCESS);
 		else if (built == -1)
 		{
-			(*msh)->path = get_path(msh);
-			if ((*msh)->path == NULL)
+			if (exc_cmd(msh) == -1)
 				break ;
-			(*msh)->cmd = get_env(cpy->cmd);
-			j = test_access(msh, (*msh)->cmd);
-			if (j > 0)
-				cmd_fork(msh, cpy, j);
-			else
-			{
-				print_error(ERR_CMD);
-				free_tab((*msh)->cmd);
-				free_tab((*msh)->path);
-				break ;
-			}
-			free_tab((*msh)->cmd);
-			free_tab((*msh)->path);
 		}
 		manage_pipefd(msh, &i, 1);
 		cpy = cpy->next;

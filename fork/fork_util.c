@@ -78,20 +78,15 @@ char	**get_path(t_msh **msh)
 
 	i = 0;
 	cpy = (*msh)->env;
-	while (cpy)
-	{
-		i++;
+	while (cpy && ++i)
 		cpy = cpy->next;
-	}
 	cpy = (*msh)->env;
 	while (cpy && ft_strncmp("PATH=", cpy->s, 4) != 0)
 	{
 		cpy = cpy->next;
 		i--;
 	}
-	if (i == 0)
-		return (NULL);
-	if (cpy->s)
+	if (i != 0 && cpy->s)
 	{
 		if (ft_strncmp("PATH=", cpy->s, 4) == 0)
 		{
@@ -110,7 +105,7 @@ char	*ft_add_cmd(char *cmd, char *add)
 
 	i = 0;
 	size = ft_strlen(cmd) + ft_strlen(add) + 2;
-	ret = (char *)malloc(sizeof(char) * size);
+	ret = ft_calloc(size, sizeof(char));
 	if (!ret)
 		return (NULL);
 	while (cmd[i])
@@ -127,6 +122,5 @@ char	*ft_add_cmd(char *cmd, char *add)
 		ret[i + size] = add[size];
 		size++;
 	}
-	ret[i + size] = '\0';
 	return (ret);
 }
