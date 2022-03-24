@@ -17,6 +17,7 @@ SRC =	main.c \
 		split.c \
 		pwd.c \
 		cd.c \
+		echo.c \
 		env.c
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,${SRC})

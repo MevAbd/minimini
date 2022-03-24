@@ -16,7 +16,7 @@
 #include "fork.h"
 #include "builtin.h"
 
-static int	compare(char *s1, char *s2)
+int	compare(char *s1, char *s2)
 {
 	int	i;
 
@@ -39,6 +39,8 @@ static int	builtin(t_parser *cmd, t_msh **msh)
 		ret = ft_exc_env(cmd, msh);
 	else if (compare(cmd->cmd->s, "cd\0") == 0)
 		ret = ft_exc_cd(cmd, msh);
+	else if (compare(cmd->cmd->s, "echo\0") == 0)
+		ret = ft_exc_echo(cmd, msh);
 	return (ret);
 }
 
