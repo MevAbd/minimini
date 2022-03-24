@@ -54,7 +54,7 @@ char	*replace(const char *s, t_cmd *env, int *i, int j)
 	char	*second;
 	char	*end;
 	char	*ret;
-	int	size;
+	int		size;
 
 	j++;
 	if (s[(*i) + j] == '\0')
@@ -65,7 +65,8 @@ char	*replace(const char *s, t_cmd *env, int *i, int j)
 	first = strdup_len(s, 0, ((*i) + j - 1));
 	size = (*i) + j;
 	j = 0;
-	while (s[size + j] && s[size + j] != ' ' && s[size + j] != '$' && s[size + j] != 39 && s[size + j] != 34)
+	while (s[size + j] && s[size + j] != ' ' && s[size + j] != '$'
+		&& s[size + j] != 39 && s[size + j] != 34)
 		j++;
 	second = strdup_len(s, size, j);
 	second = search_env(second, env);

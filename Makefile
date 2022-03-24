@@ -10,6 +10,7 @@ SRC =	main.c \
 		pars_util.c \
 		fill_env.c \
 		quote.c \
+		quote_util.c \
 		replace_dol.c \
 		fork.c \
 		fork_util.c \

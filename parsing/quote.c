@@ -45,61 +45,6 @@ static int	simple_manage(t_lexer **lexer, int i)
 	return (i);
 }
 
-char	*add_str(char *s1, char *s2)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*ret;
-
-	len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	ret = ft_calloc(len, sizeof(char));
-	if (ret == NULL)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		ret[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-	{
-		ret[i + j] = s2[j];
-		j++;
-	}
-	ret[i + j] = '\0';
-	return (ret);
-}
-
-static char	*remove_quote(const char *str, int *i, int j, t_cmd *env)
-{
-	char	*first;
-	char	*second;
-	char	*end;
-	char	*ret;
-
-	first = strdup_len(str, 0, (*i));
-	if (is_double_quote(str[(*i)]))
-		(*i)++;
-	j = 0;
-	while (!(is_double_quote(str[(*i) + j])) && str[(*i) + j])
-		j++;
-	second = strdup_len(str, (*i), j);
-	if (is_double_quote(str[(*i) + j]))
-		j++;
-	end = strdup_len(str, ((*i) + j), ft_strlen(&str[(*i) + j]));
-	second = replace_dol(second, env);
-	ret = add_str(first, second);
-	(*i) = ft_strlen(ret);
-	free(first);
-	free(second);
-	second = add_str(ret, end);
-	free(end);
-	free(ret);
-	return (second);
-}
-
 static int	double_manage(t_lexer **lexer, int i, t_cmd *env)
 {
 	int		j;
@@ -146,19 +91,6 @@ static int	normal_manage(t_lexer **lexer, int i, t_cmd *env)
 	return (i);
 }
 
-void	test_quote(int i, int j, char *s)
-{
-	while (j < i)
-	{
-		if (s[i] == 34 || s[i] == 39)
-		{
-			print_error(ERR_SYNT);
-			return ;
-		}
-		j++;
-	}
-}
-
 void	quote_manage(t_lexer **lexer, t_cmd *env)
 {
 	int		i;
@@ -177,7 +109,6 @@ void	quote_manage(t_lexer **lexer, t_cmd *env)
 				if (is_simple_quote(cpy->s[i]))
 					i = simple_manage(&cpy, i);
 				else if (is_double_quote(cpy->s[i]))
-		
 					i = double_manage(&cpy, i, env);
 				else
 				{

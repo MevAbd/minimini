@@ -18,7 +18,9 @@
 char			*add_str(char *s1, char *s2);
 char			*replace_dol(const char *s, t_cmd *env);
 char			*replace(const char *s, t_cmd *env, int *i, int j);
+char			*remove_quote(const char *s, int *i, int j, t_cmd *env);
 
+void			test_quote(int i, int j, char *s);
 void			free_cmd(t_cmd **cmd);
 void			free_redir(t_redir **redir);
 void			quote_manage(t_lexer **lexer, t_cmd *env);
