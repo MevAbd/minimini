@@ -62,7 +62,8 @@ static void	ft_unset(char *s, t_msh **msh)
 			free((*msh)->tab_env[i]);
 			(*msh)->tab_env[i] = NULL;
 		}
-		else i++;
+		else
+			i++;
 	}
 	free_cmd(&(*msh)->env);
 	(*msh)->env = fill_env((*msh)->tab_env);

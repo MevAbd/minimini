@@ -40,7 +40,7 @@ static int	builtin(t_parser *cmd, t_msh **msh)
 	else if (compare(cmd->cmd->s, "cd\0") == 0)
 		ret = ft_exc_cd(cmd, msh);
 	else if (compare(cmd->cmd->s, "echo\0") == 0)
-		ret = ft_exc_echo(cmd, msh);
+		ret = ft_exc_echo(cmd, msh, 1);
 	else if (compare(cmd->cmd->s, "export\0") == 0)
 		ret = ft_exc_export(cmd, msh);
 	else if (compare(cmd->cmd->s, "unset\0") == 0)

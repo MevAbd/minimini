@@ -56,13 +56,39 @@ static int	ft_cmp(const char *s1, const char *s2)
 	return (0);
 }
 
-int	ft_exc_export(t_parser *pars, t_msh **msh)
+static void	ft_export(t_parser *parser, t_msh **msh)
 {
 	char	*name;
 	t_cmd	*cpy;
 	t_cmd	*cpy_env;
 
 	cpy = pars->cmd;
+	cpy_env = (*msh)->env;
+	while (cpy)
+	{
+		name = ft_search_name(cpy->s);
+		if (name)
+		{
+			while (cpy_env && ft_cmp(name, cpy_env->s))
+				cpy_env = cpy_env->next;
+			if (cpy_env && cpy_env->s)
+			{
+				free(cpy_env->s);
+				cpy_env->s = ft_strdup(cpy->s);
+			}
+			else
+				addback_cmd((&(*msh)->env), new_cmd(new_lexer(name, WORD)));
+			free(name);
+		}
+		cpy = cpy->next;
+		cpy_env = (*msh)->env;
+	}
+}
+
+int	ft_exc_export(t_parser *pars, t_msh **msh)
+{
+	t_cmd	*cpy_env;
+
 	cpy_env = (*msh)->env;
 	if (cpy->next == NULL)
 	{
@@ -75,28 +101,8 @@ int	ft_exc_export(t_parser *pars, t_msh **msh)
 		return (0);
 	}
 	else
-	{
-		while (cpy)
-		{
-			name = ft_search_name(cpy->s);
-			if (name)
-			{
-				while (cpy_env && ft_cmp(name, cpy_env->s))
-					cpy_env = cpy_env->next;
-				if (cpy_env && cpy_env->s)
-				{
-					free(cpy_env->s);
-					cpy_env->s = ft_strdup(cpy->s);
-				}
-				else
-					addback_cmd((&(*msh)->env), new_cmd(new_lexer(name, WORD)));
-				free(name);
-			}
-			cpy = cpy->next;
-			cpy_env = (*msh)->env;
-		}
-		free_tab((*msh)->tab_env);
-		(*msh)->tab_env = get_env((*msh)->env);
-	}
+		ft_export(pars, msh);
+	free_tab((*msh)->tab_env);
+	(*msh)->tab_env = get_env((*msh)->env);
 	return (0);
 }

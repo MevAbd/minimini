@@ -28,33 +28,6 @@ static int	ft_cmp(const char *s1, const char *s2)
 	return (0);
 }
 
-static char	*ft_stradd(char *s1, char *s2)
-{
-	int		i;
-	int		j;
-	int		size;
-	char	*ret;
-
-	i = 0;
-	j = 0;
-	size = ft_strlen(s1) + ft_strlen(s2);
-	ret = (char *)malloc(sizeof(char) * size + 1);
-	if (!ret)
-		return (NULL);
-	while (s1[i])
-	{
-		ret[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		ret[i + j] = s2[j];
-		j++;
-	}
-	ret[i + j] = '\0';
-	return (ret);
-}
-
 static void	ft_replace(t_msh **msh, char *pwd, char *s)
 {
 	int	i;
@@ -67,7 +40,7 @@ static void	ft_replace(t_msh **msh, char *pwd, char *s)
 		else
 		{
 			free((*msh)->tab_env[i]);
-			(*msh)->tab_env[i] = ft_stradd(s, pwd);
+			(*msh)->tab_env[i] = add_str(s, pwd);
 			return ;
 		}
 	}
@@ -110,7 +83,8 @@ int	ft_cd_old(t_msh **msh)
 	if ((*msh)->tab_env[i])
 	{
 		chdir(&(*msh)->tab_env[i][7]);
-		write((*msh)->fd_out, (&(*msh)->tab_env[i][7]), ft_strlen(&(*msh)->tab_env[i][7]));
+		write((*msh)->fd_out, (&(*msh)->tab_env[i][7]),
+			ft_strlen(&(*msh)->tab_env[i][7]));
 		write((*msh)->fd_out, "\n", 1);
 		ft_replace(msh, (&(*msh)->tab_env[i][7]), "PWD=");
 		return (0);

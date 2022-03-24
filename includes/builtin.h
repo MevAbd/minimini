@@ -19,9 +19,9 @@ int		compare(char *s1, char *s2);
 int		ft_pwd(t_parser *cmd, t_msh **msh);
 int		ft_exc_cd(t_parser *cmd, t_msh **msh);
 int		ft_exc_env(t_parser *cmd, t_msh **msh);
-int		ft_exc_echo(t_parser *cmd, t_msh **msh);
 int		ft_exc_export(t_parser *cmd, t_msh **msh);
 int		ft_exc_unset(t_parser *cmd, t_msh **msh);
 int		ft_exc_exit(t_parser *cmd, t_msh **msh);
+int		ft_exc_echo(t_parser *cmd, t_msh **msh, int new_line);
 
 #endif
