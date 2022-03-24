@@ -70,7 +70,6 @@ char	*replace(const char *s, t_cmd *env, int *i, int j)
 	second = strdup_len(s, size, j);
 	second = search_env(second, env);
 	end = ft_strdup(&s[size + j]);
-	printf("t1\n");
 	ret = add_str(first, second);
 	(*i) = ft_strlen(ret);
 	free((char *)s);

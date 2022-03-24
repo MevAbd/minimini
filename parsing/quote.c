@@ -89,10 +89,7 @@ static char	*remove_quote(const char *str, int *i, int j, t_cmd *env)
 	if (is_double_quote(str[(*i) + j]))
 		j++;
 	end = strdup_len(str, ((*i) + j), ft_strlen(&str[(*i) + j]));
-//	printf("first == %s\n", first);
-//	printf("end == %s\n", end);
 	second = replace_dol(second, env);
-//	printf("second == %s\n", second);
 	ret = add_str(first, second);
 	(*i) = ft_strlen(ret);
 	free(first);
@@ -140,7 +137,6 @@ static int	normal_manage(t_lexer **lexer, int i, t_cmd *env)
 			return (i + j);
 		else if (cpy->s[i + j] == '$')
 		{
-			printf("end\n");
 			cpy->s = replace(cpy->s, env, &i, j);
 			j = 0;
 		}

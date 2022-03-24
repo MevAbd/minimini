@@ -1,0 +1,118 @@
+// PARSER
+
+struct t_pars
+{
+	t_cmd	*cmd_lst = {"pwd", "-a", NULL};
+	int	n_arg;
+	t_redir	*redir_lst;
+	int	fd_in = 0;
+	int	fd_out = 1;
+	t_pars *next;
+};
+
+t_redir
+{
+	char	*word;
+	int	type;
+}
+
+
+>a pwd >>b -a <c | << end cat <    b -e
+
+
+
+// LEXER
+
+typdef enum e_type
+{
+	REDIR=-7,
+	WORD,
+	PIPE
+}	t_type;
+
+t_type	type;
+
+type = REDIR;
+printf("%d\n", type);
+
+typedef struct s_lexer
+{
+	char	*word;
+	t_type	type;
+	t_lexer	*next;
+}	t_lexer;
+if (lexer->type == REDIR)
+	if (type == WORD)
+
+>	REDIR
+a	WORD
+pwd	WORD
+>>	
+b	
+-a	WORD
+<	REDIR
+c	WORD
+|	PIE
+<<
+end
+cat
+<
+b
+-e
+
+int	i = 0;
+while (str[i])
+{
+	if (str[i] == ('<' | '<<' || '>' || '>>')
+		set_redir()
+	else if (str[i] == '|')
+		set_new_node()
+	else
+	{
+		int j = 0'
+		while (str[i + j] != (PIPE | CHEVRON | SPACE | TAB | '\0'))
+		{
+			if (str[i + j] == QUOTE)
+				while (str[i + j] != SAME_QUOTE)
+					j++;
+			else
+				j++;
+		}
+		add_cmd(node, &str[i], j - i);
+	}
+}
+
+
+
+
+
+
+ // PARSER
+if (REDIR)
+	set_redir
+else if (PIPE)
+	set_new_node
+else
+	set_cmd
+
+node 1 :
+cmd_list = {"pwd", -a, NULL}
+n_arg = 2;
+redir_list = {"a, TRUNC", "b, APPEND", "c, IN", NULL}
+next = node 2;
+
+node 2 :
+cmd_list = {"cat", "-e", NULL}
+n_arg = 2;
+redir_list = "end, HEREDOC", "b, IN", NULL}
+
+
+
+
+// EXEC
+
+traitement pipe
+
+if (fd_out != 1)
+	close(fd_out)
+fd_out = open("a", O_TRUNC);

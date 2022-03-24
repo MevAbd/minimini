@@ -41,6 +41,12 @@ static int	builtin(t_parser *cmd, t_msh **msh)
 		ret = ft_exc_cd(cmd, msh);
 	else if (compare(cmd->cmd->s, "echo\0") == 0)
 		ret = ft_exc_echo(cmd, msh);
+	else if (compare(cmd->cmd->s, "export\0") == 0)
+		ret = ft_exc_export(cmd, msh);
+	else if (compare(cmd->cmd->s, "unset\0") == 0)
+		ret = ft_exc_unset(cmd, msh);
+	else if (compare(cmd->cmd->s, "exit\0") == 0)
+		ret = ft_exc_exit(cmd, msh);
 	return (ret);
 }
 
@@ -48,6 +54,7 @@ void	search_cmd(t_msh **msh)
 {
 	int			i;
 	int			j;
+	int 		built;
 	t_parser	*cpy;
 
 	i = 0;
@@ -56,9 +63,14 @@ void	search_cmd(t_msh **msh)
 	while (i < (*msh)->size)
 	{
 		manage_pipefd(msh, &i, 0);
-		if (builtin(cpy, msh) == -1)
+		built = builtin(cpy, msh);
+		if (built == 138)
+			exit (EXIT_SUCCESS);
+		else if (built == -1)
 		{
 			(*msh)->path = get_path(msh);
+			if ((*msh)->path == NULL)
+				break ;
 			(*msh)->cmd = get_env(cpy->cmd);
 			j = test_access(msh, (*msh)->cmd);
 			if (j > 0)
@@ -66,6 +78,8 @@ void	search_cmd(t_msh **msh)
 			else
 			{
 				print_error(ERR_CMD);
+				free_tab((*msh)->cmd);
+				free_tab((*msh)->path);
 				break ;
 			}
 			free_tab((*msh)->cmd);

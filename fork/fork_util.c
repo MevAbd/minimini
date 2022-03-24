@@ -72,12 +72,25 @@ void	free_tab(char **env)
 
 char	**get_path(t_msh **msh)
 {
+	int		i;
 	t_cmd	*cpy;
 	char	**path;
 
+	i = 0;
+	cpy = (*msh)->env;
+	while (cpy)
+	{
+		i++;
+		cpy = cpy->next;
+	}
 	cpy = (*msh)->env;
 	while (cpy && ft_strncmp("PATH=", cpy->s, 4) != 0)
+	{
 		cpy = cpy->next;
+		i--;
+	}
+	if (i == 0)
+		return (NULL);
 	if (cpy->s)
 	{
 		if (ft_strncmp("PATH=", cpy->s, 4) == 0)
