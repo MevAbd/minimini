@@ -62,7 +62,7 @@ static void	ft_export(t_parser *parser, t_msh **msh)
 	t_cmd	*cpy;
 	t_cmd	*cpy_env;
 
-	cpy = pars->cmd;
+	cpy = parser->cmd;
 	cpy_env = (*msh)->env;
 	while (cpy)
 	{
@@ -90,7 +90,7 @@ int	ft_exc_export(t_parser *pars, t_msh **msh)
 	t_cmd	*cpy_env;
 
 	cpy_env = (*msh)->env;
-	if (cpy->next == NULL)
+	if (pars->cmd->next == NULL)
 	{
 		while (cpy_env)
 		{
