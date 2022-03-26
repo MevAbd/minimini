@@ -75,7 +75,7 @@ static int	normal_manage(t_lexer **lexer, int i, t_cmd *env)
 	t_lexer	*cpy;
 
 	j = 0;
-	cpy = (*lexer);
+	cpy = *lexer;
 	while (cpy->s[i + j])
 	{
 		if (is_simple_quote(cpy->s[i + j]) || is_double_quote(cpy->s[i + j]))
@@ -91,42 +91,46 @@ static int	normal_manage(t_lexer **lexer, int i, t_cmd *env)
 	return (i);
 }
 
-void	quote_manage(t_lexer **lexer, t_cmd *env)
+void	quote_and_$_manager(t_lexer **lexer, t_cmd *env)
 {
-	int		i;
-	int		j;
-	int		verif;
 	t_lexer	*cpy;
 
 	cpy = (*lexer);
 	while (cpy)
 	{
 		if (cpy->type == WORD)
-		{
-			i = 0;
-			while (cpy->s[i] != '\0')
-			{
-				if (is_simple_quote(cpy->s[i]))
-					i = simple_manage(&cpy, i);
-				else if (is_double_quote(cpy->s[i]))
-					i = double_manage(&cpy, i, env);
-				else
-				{
-					j = i;
-					verif = ft_strlen(cpy->s);
-					i = normal_manage(&cpy, i, env);
-					test_quote(i, j, cpy->s);
-					if (verif == ft_strlen(cpy->s))
-						break ;
-				}
-				if (i == ft_strlen(cpy->s) || i == ft_strlen(cpy->s) - 1)
-					break ;
-				if (get_error() != SUCCESS)
-					break ;
-			}	
-		}
+			a_nommer(cpy, env);
 		if (get_error() != SUCCESS)
 			break ;
 		cpy = cpy->next;
 	}
+}
+
+void a_nommer(t_lexer *lexer, t_cmd *env)
+{
+	int i;
+	int j;
+	int verif;
+
+	while (cpy->s[i] != '\0')
+	{
+		if (is_simple_quote(cpy->s[i]))
+			i = simple_manage(&cpy, i);
+		else if (is_double_quote(cpy->s[i]))
+			i = double_manage(&cpy, i, env);
+		else
+		{
+			j = i;
+			verif = ft_strlen(cpy->s);
+			i = normal_manage(&cpy, i, env);
+			test_quote(i, j, cpy->s);
+			if (verif == ft_strlen(cpy->s))
+				break ;
+		}
+		if (i == ft_strlen(cpy->s) || i == ft_strlen(cpy->s) - 1)
+			break ;
+		if (get_error() != SUCCESS)
+			break ;
+		}
+}
 }
