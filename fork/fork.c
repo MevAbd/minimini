@@ -50,6 +50,34 @@ static int	builtin(t_parser *cmd, t_msh **msh)
 	return (ret);
 }
 
+void	redir(t_msh **msh)
+{
+	t_redir	*cpy;
+
+	cpy = (*msh)->pars->redir;
+	if (!cpy)
+		return ;
+	while (cpy)
+	{
+		if (cpy->rafter == R)
+		{
+			cpy = cpy->next;
+			if ((*msh)->fd_out != 1)
+				close((*msh)->fd_out);
+			(*msh)->fd_out = open(cpy->s, O_CREAT | O_WRONLY, 0664);
+			cpy = cpy->next;
+		}
+		else if (cpy->rafter == RR)
+		{
+			cpy = cpy->next;
+			if ((*msh)->fd_out != 1)
+				close((*msh)->fd_out);
+			(*msh)->fd_out = open(cpy->s, O_CREAT | O_APPEND | O_WRONLY, 0664);
+			cpy = cpy->next;
+		}
+	}
+}
+
 void	search_cmd(t_msh **msh)
 {
 	int			i;
@@ -63,6 +91,7 @@ void	search_cmd(t_msh **msh)
 	while (i < (*msh)->size)
 	{
 		manage_pipefd(msh, &i, 0);
+		redir(msh);
 		built = builtin(cpy, msh);
 		if (built == 138)
 			exit (EXIT_SUCCESS);
