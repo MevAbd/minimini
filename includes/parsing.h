@@ -23,7 +23,7 @@ char			*remove_quote(const char *s, int *i, int j, t_cmd *env);
 void			test_quote(int i, int j, char *s);
 void			free_cmd(t_cmd **cmd);
 void			free_redir(t_redir **redir);
-void			quote_manage(t_lexer **lexer, t_cmd *env);
+void			word_checker(t_lexer **lexer, t_cmd *env);
 void			free_parser(t_parser **parser);
 void			parsing(const char *s, t_msh **msh);
 void			addback_cmd(t_cmd **cmd, t_cmd *add);

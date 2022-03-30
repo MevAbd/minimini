@@ -50,31 +50,6 @@ static int	builtin(t_parser *cmd, t_msh **msh)
 	return (ret);
 }
 
-<<<<<<< HEAD
-static int	exc_cmd(t_msh **msh)
-{
-	int			j;
-	t_parser	*cpy;
-
-	cpy = (*msh)->pars;
-	(*msh)->path = get_path(msh);
-	if ((*msh)->path == NULL)
-		return (-1);
-	(*msh)->cmd = get_env(cpy->cmd);
-	j = test_access(msh, (*msh)->cmd);
-	if (j > 0)
-		cmd_fork(msh, cpy, j);
-	else
-	{
-		print_error(ERR_CMD);
-		free_tab((*msh)->cmd);
-		free_tab((*msh)->path);
-		return (-1);
-	}
-	free_tab((*msh)->cmd);
-	free_tab((*msh)->path);
-	return (0);
-=======
 void	redir(t_parser *pars, t_msh **msh)
 {
 	t_redir	*cpy;
@@ -109,7 +84,6 @@ void	redir(t_parser *pars, t_msh **msh)
 			cpy = cpy->next;
 		}
 	}
->>>>>>> master
 }
 
 void	search_cmd(t_msh **msh)

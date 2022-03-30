@@ -49,7 +49,7 @@ void	parsing(const char *s, t_msh **msh)
 		return ;
 	if (get_error() == SUCCESS)
 	{	
-		quote_manage(&lexer, (*msh)->env);
+		word_checker(&lexer, (*msh)->env);
 		if (get_error() == SUCCESS)
 		{	
 			cut_cmd(&lexer, (&(*msh)->pars));
