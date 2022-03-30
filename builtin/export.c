@@ -92,7 +92,7 @@ int	ft_exc_export(t_parser *pars, t_msh **msh)
 
 	cpy = pars->cmd;
 	cpy_env = (*msh)->env;
-	if (cpy->next == NULL)
+	if (pars->cmd->next == NULL)
 	{
 		while (cpy_env)
 		{

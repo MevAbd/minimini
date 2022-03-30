@@ -91,22 +91,8 @@ static int	normal_manage(t_lexer **lexer, int i, t_cmd *env)
 	return (i);
 }
 
-void	quote_and_$_manager(t_lexer **lexer, t_cmd *env)
-{
-	t_lexer	*cpy;
 
-	cpy = (*lexer);
-	while (cpy)
-	{
-		if (cpy->type == WORD)
-			a_nommer(cpy, env);
-		if (get_error() != SUCCESS)
-			break ;
-		cpy = cpy->next;
-	}
-}
-
-void a_nommer(t_lexer *lexer, t_cmd *env)
+void manager(t_lexer *lexer, t_cmd *env)
 {
 	int i;
 	int j;
@@ -132,5 +118,21 @@ void a_nommer(t_lexer *lexer, t_cmd *env)
 		if (get_error() != SUCCESS)
 			break ;
 		}
+	}
 }
+
+
+void	quote_and_$_manager(t_lexer **lexer, t_cmd *env)
+{
+	t_lexer	*cpy;
+
+	cpy = (*lexer);
+	while (cpy)
+	{
+		if (cpy->type == WORD)
+			manager(cpy, env);
+		if (get_error() != SUCCESS)
+			break ;
+		cpy = cpy->next;
+	}
 }
