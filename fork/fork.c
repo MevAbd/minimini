@@ -50,22 +50,21 @@ static int	builtin(t_parser *cmd, t_msh **msh)
 	return (ret);
 }
 
-void	redir(t_msh **msh)
+void	redir(t_parser *pars, t_msh **msh)
 {
 	t_redir	*cpy;
 
-	cpy = (*msh)->pars->redir;
+	cpy = pars->redir;
 	if (!cpy)
 		return ;
 	while (cpy)
 	{
 		if (cpy->rafter == R)
 		{
-			printf("t1\n");
 			cpy = cpy->next;
 			if ((*msh)->fd_out != 1)
 				close((*msh)->fd_out);
-			(*msh)->fd_out = open(cpy->s, O_CREAT | O_WRONLY, 0664);
+			(*msh)->fd_out = open(cpy->s, O_CREAT | O_TRUNC | O_WRONLY, 0664);
 			cpy = cpy->next;
 		}
 		else if (cpy->rafter == RR)
@@ -74,6 +73,14 @@ void	redir(t_msh **msh)
 			if ((*msh)->fd_out != 1)
 				close((*msh)->fd_out);
 			(*msh)->fd_out = open(cpy->s, O_CREAT | O_APPEND | O_WRONLY, 0664);
+			cpy = cpy->next;
+		}
+		else if (cpy->rafter == L)
+		{
+			cpy = cpy->next;
+			if ((*msh)->fd_in != 0)
+				close((*msh)->fd_in);
+			(*msh)->fd_in = open(cpy->s,  O_RDONLY);
 			cpy = cpy->next;
 		}
 	}
@@ -92,7 +99,7 @@ void	search_cmd(t_msh **msh)
 	while (i < (*msh)->size)
 	{
 		manage_pipefd(msh, &i, 0);
-		redir(msh);
+		redir(cpy, msh);
 		built = builtin(cpy, msh);
 		if (built == 138)
 			exit (EXIT_SUCCESS);
