@@ -61,6 +61,7 @@ void	redir(t_msh **msh)
 	{
 		if (cpy->rafter == R)
 		{
+			printf("t1\n");
 			cpy = cpy->next;
 			if ((*msh)->fd_out != 1)
 				close((*msh)->fd_out);

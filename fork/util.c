@@ -54,6 +54,8 @@ void	manage_pipefd(t_msh **msh, int *i, int verif)
 		else
 		{
 			(*msh)->pipefd[0] = 0;
+		//	(*msh)->pipefd[1] = (*msh)->fd_out;
+	//		(*msh)->fd_out = 1; 
 			(*msh)->pipefd[1] = 1;
 		}
 	}
@@ -62,6 +64,7 @@ void	manage_pipefd(t_msh **msh, int *i, int verif)
 		if ((*msh)->fd_in != 0)
 			close((*msh)->fd_in);
 		(*msh)->fd_in = (*msh)->pipefd[0];
+	//	dup2((*msh)->fd_in, 0);
 		if ((*msh)->fd_out != 1)
 		{
 			close((*msh)->fd_out);
@@ -78,11 +81,13 @@ void	cmd_fork(t_msh **msh, t_parser *cpy, int j)
 	{
 		if ((*msh)->fd_in != 0)
 		{
+			printf("fdin\n");
 			dup2((*msh)->fd_in, 0);
 			close((*msh)->fd_in);
 		}
 		if ((*msh)->fd_out != 1)
 		{
+			printf("fdout\n");
 			dup2((*msh)->fd_out, 1);
 			close((*msh)->fd_out);
 		}
