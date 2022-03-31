@@ -33,6 +33,8 @@ static int	builtin(t_parser *cmd, t_msh **msh)
 	int	ret;
 
 	ret = -1;
+	if (cmd->next != NULL)
+		return (-1);
 	if (compare(cmd->cmd->s, "pwd\0") == 0)
 		ret = ft_pwd(cmd, msh);
 	else if (compare(cmd->cmd->s, "env\0") == 0)
