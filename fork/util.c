@@ -48,7 +48,6 @@ void	manage_pipefd(t_msh **msh, int *i, int verif)
 	{
 		if ((*i) < (*msh)->size - 1)
 		{
-			
 			pipe((*msh)->pipefd);
 			(*msh)->fd_out = (*msh)->pipefd[1];
 		}

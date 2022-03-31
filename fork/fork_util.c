@@ -14,21 +14,6 @@
 #include "parsing.h"
 #include "fork.h"
 
-int	nb_cmd(t_parser *pars)
-{
-	int			i;
-	t_parser	*cpy;
-
-	cpy = pars;
-	i = 0;
-	while (cpy)
-	{
-		cpy = cpy->next;
-		i++;
-	}
-	return (i);
-}
-
 char	**get_env(t_cmd *env)
 {
 	int		size;
@@ -78,12 +63,7 @@ char	**get_path(t_msh **msh)
 
 	i = 0;
 	cpy = (*msh)->env;
-	while (cpy)
-	{
-		i++;
-		cpy = cpy->next;
-	}
-	cpy = (*msh)->env;
+	i = nb_line_env(cpy);
 	while (cpy && ft_strncmp("PATH=", cpy->s, 4) != 0)
 	{
 		cpy = cpy->next;
