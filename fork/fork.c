@@ -33,13 +33,11 @@ static int	builtin(t_parser *cmd, t_msh **msh)
 	int	ret;
 
 	ret = -1;
-	if (cmd->next != NULL)
-		return (-1);
 	if (compare(cmd->cmd->s, "pwd\0") == 0)
 		ret = ft_pwd(cmd, msh);
 	else if (compare(cmd->cmd->s, "env\0") == 0)
 		ret = ft_exc_env(cmd, msh);
-	else if (compare(cmd->cmd->s, "cd\0") == 0)
+	else if (compare(cmd->cmd->s, "cd\0") == 0 && cmd->next == NULL)
 		ret = ft_exc_cd(cmd, msh);
 	else if (compare(cmd->cmd->s, "echo\0") == 0)
 		ret = ft_exc_echo(cmd, msh, 1);

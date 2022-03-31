@@ -100,6 +100,8 @@ int	ft_exc_export(t_parser *pars, t_msh **msh)
 		}
 		return (0);
 	}
+	else if (pars->next != NULL)
+		return (0);
 	else
 		ft_export(pars, msh);
 	free_tab((*msh)->tab_env);
