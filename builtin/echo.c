@@ -12,6 +12,31 @@
 
 #include "builtin.h"
 
+static void	check_new_line(t_cmd **cmd, int *new_line)
+{
+	int	i;
+	int	verif;
+
+	verif = 0;
+	while (*cmd)
+	{
+		i = 0;
+		if ((*cmd)->s[i] == '-')
+			i++;
+		if (verif == 0 && i == 0)
+			return ;
+		verif++;
+		while ((*cmd)->s[i])
+		{
+			if ((*cmd)->s[i] != 'n')
+				return ;
+			i++;
+		}
+		*new_line = 0;
+		(*cmd) = (*cmd)->next;
+	}
+}
+
 int	ft_exc_echo(t_parser *pars, t_msh **msh, int new_line)
 {
 	t_cmd	*cpy;
@@ -23,11 +48,7 @@ int	ft_exc_echo(t_parser *pars, t_msh **msh, int new_line)
 		return (0);
 	}
 	cpy = cpy->next;
-	if (compare(cpy->s, "-n") == 0)
-	{
-		new_line = 0;
-		cpy = cpy->next;
-	}
+	check_new_line(&cpy, &new_line);
 	while (cpy)
 	{
 		write((*msh)->fd_out, cpy->s, ft_strlen(cpy->s));
