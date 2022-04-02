@@ -54,7 +54,11 @@ void	parsing(const char *s, t_msh **msh)
 		{	
 			cut_cmd(&lexer, (&(*msh)->pars));
 			if (get_error() == SUCCESS)
-				search_cmd(msh);
+			{
+				manage_herdoc(msh);
+				if (get_error() == SUCCESS)
+					search_cmd(msh);
+			}
 		}
 	}
 	free_lexer(&lexer);

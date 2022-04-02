@@ -28,7 +28,7 @@ static void	type_redir(t_redir **redir)
 		if ((*redir)->s[0] == '>' && (*redir)->s[1] == '>')
 			(*redir)->rafter = RR;
 		else if ((*redir)->s[0] == '<' && (*redir)->s[1] == '<')
-			(*redir)->rafter = L;
+			(*redir)->rafter = LL;
 	}
 }
 

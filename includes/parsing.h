@@ -19,6 +19,7 @@ char			*add_str(char *s1, char *s2);
 char			*replace_dol(const char *s, t_cmd *env);
 char			*replace(const char *s, t_cmd *env, int *i, int j);
 
+void			manage_herdoc(t_msh **msh);
 void			free_cmd(t_cmd **cmd);
 void			free_redir(t_redir **redir);
 void			quote_manage(t_lexer **lexer, t_cmd *env);

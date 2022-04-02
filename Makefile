@@ -23,6 +23,7 @@ SRC =	main.c \
 		exit.c \
 		redir_fd.c \
 		count_lst.c \
+		herdoc.c \
 		env.c
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,${SRC})
