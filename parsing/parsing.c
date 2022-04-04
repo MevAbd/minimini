@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 02:31:26 by malbrand          #+#    #+#             */
-/*   Updated: 2022/02/23 22:42:20 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:29:54 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,11 @@ void	parsing(const char *s, t_msh **msh)
 		{	
 			cut_cmd(&lexer, (&(*msh)->pars));
 			if (get_error() == SUCCESS)
-				search_cmd(msh);
+			{
+				manage_herdoc(msh);
+				if (get_error() == SUCCESS)
+					search_cmd(msh);
+			}
 		}
 	}
 	free_lexer(&lexer);

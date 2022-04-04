@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 02:31:26 by malbrand          #+#    #+#             */
-/*   Updated: 2022/02/23 22:42:20 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:40:13 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int             find_next_given_char_index(char const *s, int i, char c);
 char	        **quote_spliter(char *s);
 
 void			test_quote(int i, int j, char *s);
+void			manage_herdoc(t_msh **msh);
+void			remove_herdoc(t_msh **msh);
 void			free_cmd(t_cmd **cmd);
 void			free_redir(t_redir **redir);
 void			word_checker(t_lexer **lexer, t_cmd *env);

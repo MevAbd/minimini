@@ -15,22 +15,6 @@
 
 #define PROMPT "SHELL $ "
 
-static const char	*g_type[]
-= {
-	"REDIR",
-	"PIPE",
-	"WORD"
-};
-
-static const char	*g_redir[]
-= {
-	"WORD",
-	"LEFT",
-	"DOUBLE LEFT",
-	"RIGHT",
-	"DOUBLE RIGHT"
-};
-
 static void	newline(int sig)
 {
 	if (sig == SIGINT)
@@ -62,7 +46,6 @@ void	print_parser(t_parser *parser, t_msh *msh)
 		while (r_cp)
 		{
 			printf("redir = %s\n", r_cp->s);
-			printf("type %s\n", g_redir[r_cp->rafter]);
 			r_cp = r_cp->next;
 		}
 		printf("\n\n");

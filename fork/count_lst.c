@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*      fork.h                                          :+:      :+:    :+:   */
+/*    count_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,27 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORK_H
-# define FORK_H
+#include "struct.h"
+#include "parsing.h"
+#include "fork.h"
 
-# include "struct.h"
+int	nb_line_env(t_cmd *env)
+{
+	int		i;
+	t_cmd	*cpy;
 
-int		nb_cmd(t_parser *pars);
-int		nb_line_env(t_cmd *env);
-int		test_access(t_msh **msh, char **cmd);
+	cpy = env;
+	i = 0;
+	while (cpy)
+	{
+		cpy = cpy->next;
+		i++;
+	}
+	return (i);
+}
 
-void	free_tab(char **tab);
-void	init_msh(t_msh **msh);
-void	search_cmd(t_msh **msh);
-void	free_wait_pid(t_msh **msh);
-void	redir(t_parser *pars, t_msh **msh);
-void	print_parser(t_parser *pars, t_msh *msh);
-void	cmd_fork(t_msh **msh, t_parser *cpy, int j);
-void	manage_pipefd(t_msh **msh, int *i, int verif);
+int	nb_cmd(t_parser *pars)
+{
+	int			i;
+	t_parser	*cpy;
 
-char	**get_env(t_cmd *env);
-char	**get_path(t_msh **msh);
-char	**ft_split(const char *s, char c);
-char	*ft_add_cmd(char *cmd, char *add);
-
-#endif
+	cpy = pars;
+	i = 0;
+	while (cpy)
+	{
+		cpy = cpy->next;
+		i++;
+	}
+	return (i);
+}

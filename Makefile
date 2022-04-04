@@ -22,8 +22,11 @@ SRC =	main.c \
 		export.c \
 		unset.c \
 		exit.c \
-		env.c \
 		quote_word_spliter.c
+		redir_fd.c \
+		count_lst.c \
+		herdoc.c \
+		env.c
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,${SRC})
 OBJ_DIR	= objs/
