@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 02:31:26 by malbrand          #+#    #+#             */
-/*   Updated: 2022/04/04 14:11:27 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:37:44 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ void	search_cmd(t_msh **msh)
 		manage_pipefd(msh, &i, 1);
 		cpy = cpy->next;
 	}
+	remove_herdoc(msh);
 	free_wait_pid(msh);
 }

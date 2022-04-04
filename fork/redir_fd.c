@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 02:31:26 by malbrand          #+#    #+#             */
-/*   Updated: 2022/04/04 14:12:25 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:11:58 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,29 @@ static int	redir_out(t_redir *cpy, t_msh **msh)
 	return (0);
 }
 
+static int	redir_in(t_redir *cpy, t_msh **msh)
+{
+	if (cpy->rafter == L)
+	{
+		cpy = cpy->next;
+		if ((*msh)->fd_in != 0)
+			close((*msh)->fd_in);
+		(*msh)->fd_in = open(cpy->s, O_RDONLY);
+		cpy = cpy->next;
+		return (1);
+	}
+	else if (cpy->rafter == LL)
+	{
+		cpy = cpy->next;
+		if ((*msh)->fd_in != 0)
+			close((*msh)->fd_in);
+		(*msh)->fd_in = open(cpy->s, O_RDONLY);
+		cpy = cpy->next;
+		return (1);
+	}
+	return (0);
+}
+
 void	redir(t_parser *pars, t_msh **msh)
 {
 	t_redir	*cpy;
@@ -53,20 +76,9 @@ void	redir(t_parser *pars, t_msh **msh)
 			cpy = cpy->next;
 			cpy = cpy->next;
 		}
-		else if (cpy->rafter == L)
+		else if (redir_in(cpy, msh) == 1)
 		{
 			cpy = cpy->next;
-			if ((*msh)->fd_in != 0)
-				close((*msh)->fd_in);
-			(*msh)->fd_in = open(cpy->s, O_RDONLY);
-			cpy = cpy->next;
-		}
-		else if (cpy->rafter == LL)
-		{
-			cpy = cpy->next;
-			if ((*msh)->fd_in != 0)
-				close((*msh)->fd_in);
-			(*msh)->fd_in = open(cpy->s, O_RDONLY);
 			cpy = cpy->next;
 		}
 	}

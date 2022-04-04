@@ -6,7 +6,7 @@
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 02:31:26 by malbrand          #+#    #+#             */
-/*   Updated: 2022/04/04 15:01:16 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/04/04 15:39:51 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,13 @@
 #include "fork.h"
 #include "parsing.h"
 
-//int	fd_heredoc
-
-//write((*msh)->fd_out, ...);
-
 void	signal_heredoc(int sig)
 {
 	write(1, "\n", 1);
 	close(1);
 }
 
-void	heredoc(const char *delimiter)
+static void	heredoc(const char *delimiter)
 {
 	char	*s;
 	char	*name;
@@ -52,7 +48,6 @@ void	manage_herdoc(t_msh **msh)
 	t_parser	*cpy;
 	t_redir		*red;
 	int			fd;
-	char		*name;
 
 	cpy = (*msh)->pars;
 	while (cpy != NULL)
@@ -64,6 +59,28 @@ void	manage_herdoc(t_msh **msh)
 			{
 				red = red->next;
 				heredoc(red->s);
+			}
+			red = red->next;
+		}
+		cpy = cpy->next;
+	}
+}
+
+void	remove_herdoc(t_msh **msh)
+{
+	t_parser	*cpy;
+	t_redir		*red;
+
+	cpy = (*msh)->pars;
+	while (cpy != NULL)
+	{
+		red = cpy->redir;
+		while (red != NULL)
+		{
+			if (red->rafter == LL)
+			{
+				red = red->next;
+				unlink(red->s);
 			}
 			red = red->next;
 		}
