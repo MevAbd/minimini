@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*      redir_fd.c                                      :+:      :+:    :+:   */
+/*   redir_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 02:31:26 by malbrand          #+#    #+#             */
-/*   Updated: 2022/02/23 22:42:20 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/04/04 14:12:25 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ void	redir(t_parser *pars, t_msh **msh)
 			cpy = cpy->next;
 		}
 		else if (cpy->rafter == L)
+		{
+			cpy = cpy->next;
+			if ((*msh)->fd_in != 0)
+				close((*msh)->fd_in);
+			(*msh)->fd_in = open(cpy->s, O_RDONLY);
+			cpy = cpy->next;
+		}
+		else if (cpy->rafter == LL)
 		{
 			cpy = cpy->next;
 			if ((*msh)->fd_in != 0)
