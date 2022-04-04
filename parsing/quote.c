@@ -13,6 +13,7 @@
 #include "struct.h"
 #include "lexer.h"
 #include "parsing.h"
+#include "lib.h"
 
 int		is_space(char c )
 {
@@ -132,6 +133,7 @@ void	dblqt_manager(char *s, t_lexer **lexer, t_cmd *env)
 void	no_quote_manager(char *s, t_lexer **lexer, t_cmd *env)
 {
 	int	i;
+	int	j;
 	char *dol_content;
 	char *tmp;
 	t_lexer *new;
@@ -143,15 +145,17 @@ void	no_quote_manager(char *s, t_lexer **lexer, t_cmd *env)
 	s = dol_content;
 
 	i = find_next_space(s, 0);
+	j = 0;
 	if (i != ft_strlen(s) - 1)
 	{
 		while (s[i])
 		{
-			tmp = ft_strjoinn((*lexer)->s, s + i - 1);
+			tmp = ft_strjoinn((*lexer)->s, s + j, i - 1);
 			free((*lexer)->s);
 			(*lexer)->s = tmp;
 			i = skip_space(s, i);
-			new = create_lexer_elem(s + i, (*lexer)->type);
+			j = i;
+			new = new_lexer(s + i, (*lexer)->type);
 			new->next = (*lexer)->next;
 			(*lexer)->next = new;
 			i = find_next_space(s, i);

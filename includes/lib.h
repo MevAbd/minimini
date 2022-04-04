@@ -20,6 +20,9 @@ int		ft_strncmp(char const *s1, char const *s2, int n);
 
 char	*ft_strdup(const char *s);
 char	*strdup_len(const char *s, int i, int j);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strnjoin(char const *s1, char const *s2, size_t n);
+char	*ft_strjoinn(char const *s1, char const *s2, size_t n);
 
 void	*ft_calloc(int nb, int size);
 
