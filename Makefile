@@ -23,7 +23,7 @@ SRC =	main.c \
 		unset.c \
 		exit.c \
 		env.c \
-		quote_word_splter.c
+		quote_word_spliter.c
 
 OBJ = $(patsubst %.c,$(OBJ_DIR)%.o,${SRC})
 OBJ_DIR	= objs/
