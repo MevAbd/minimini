@@ -75,7 +75,6 @@ int        fill_str(char const *src, char *str, int j, int next_quote_index)
         i++;
         j++;
     }
-    str[i] = '\0';
 
     return (j);
 }
@@ -93,7 +92,7 @@ char        **fill_tab(char **tab, char const *s, int tab_size)
         next_quote_index = find_next_quote_index(s, j);
         if (is_quote(s[j]))
             next_quote_index = find_next_given_char_index(s, j, s[j]);
-		tab[i] = (char *)malloc(sizeof(char) * (next_quote_index - j));
+		tab[i] = ft_calloc((next_quote_index - j + 1), sizeof(char));
 		if (!tab[i])
             return (NULL);
         j = fill_str(s, tab[i], j, next_quote_index);
