@@ -93,13 +93,16 @@ char		*find_dol_content(char *s, int size, t_cmd *env)
 
 	tmp = env;
 	to_cmp = ft_strnjoin(s, "=", size);
+	printf("TO_CMP 1================= %s\n", to_cmp);
 	while (tmp)
 	{
 		if (ft_strncmp(to_cmp, tmp->s, size) == 0)
 			return (ft_strdup(tmp->s + size + 1));
 		tmp = tmp->next;
 	}
-	ft_memdel((void**)to_cmp);
+	printf("TO_CMP 2================= %s\n", to_cmp);
+	if (to_cmp)
+		ft_memdel((void**)to_cmp);
 	return NULL;
 }
 
