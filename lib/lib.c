@@ -25,6 +25,29 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
+void	ft_memdel(void **ap)
+{
+	if (!ap)
+		return ;
+	free(*ap);
+	*ap = (NULL);
+}
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char *res;
+
+	res = (unsigned char*)s;
+	while (n--)
+		*res++ = (unsigned char)c;
+	return (s);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, '\0', n);
+}
+
 int	ft_strncmp(char const *s1, char const *s2, int n)
 {
 	int	i;

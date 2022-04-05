@@ -55,9 +55,9 @@ int	line_pipe(const char *s, int i, t_lexer **lexer)
 	return (i + j);
 }
 
-int	is_space(char c)
-{
-	if (c == ' ')
-		return (1);
-	return (0);
-}
+// int	is_space(char c)
+// {
+// 	if (c == ' ')
+// 		return (1);
+// 	return (0);
+// }

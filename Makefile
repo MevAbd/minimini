@@ -22,7 +22,7 @@ SRC =	main.c \
 		export.c \
 		unset.c \
 		exit.c \
-		quote_word_spliter.c
+		quote_word_spliter.c \
 		redir_fd.c \
 		count_lst.c \
 		herdoc.c \

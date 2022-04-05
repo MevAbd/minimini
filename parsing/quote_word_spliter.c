@@ -114,7 +114,6 @@ char	    **quote_spliter(char *s)
     word_count = word_counter(s);
     if (word_count == -1)
         return (NULL);
-    printf("word count: %d\n\n", word_count);
 
     ret = (char **)malloc(sizeof(char *) * (word_count + 1));
     if (!ret)
@@ -125,18 +124,18 @@ char	    **quote_spliter(char *s)
     return (ret);
 }
 
-int main(int ac, char **av)
-{
-    char **ss;
+// int main(int ac, char **av)
+// {
+//     char **ss;
     
-    ss = quote_spliter("\"nimportequoi     $mev         qulequechose\"");
+//     ss = quote_spliter("\"nimportequoi     $mev         qulequechose\"");
 
 
-    while(*ss != NULL)
-    {
-        printf("%s\n", *ss);
-        ss++;
-    }
+//     while(*ss != NULL)
+//     {
+//         printf("%s\n", *ss);
+//         ss++;
+//     }
 
-    return (0);
-}
+//     return (0);
+// }
