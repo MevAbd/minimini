@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*      fork.h                                          :+:      :+:    :+:   */
+/*   fork.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malbrand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 02:31:26 by malbrand          #+#    #+#             */
-/*   Updated: 2022/02/23 22:42:20 by malbrand         ###   ########.fr       */
+/*   Updated: 2022/04/05 12:42:34 by malbrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		nb_cmd(t_parser *pars);
 int		nb_line_env(t_cmd *env);
 int		test_access(t_msh **msh, char **cmd);
 
-void	free_tab(char **tab);
+void	free_tab(char **tabl);
 void	init_msh(t_msh **msh);
 void	search_cmd(t_msh **msh);
 void	free_wait_pid(t_msh **msh);

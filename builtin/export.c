@@ -63,6 +63,7 @@ static void	ft_export(t_parser *parser, t_msh **msh)
 	t_cmd	*cpy_env;
 
 	cpy = parser->cmd;
+	cpy = cpy->next;
 	cpy_env = (*msh)->env;
 	while (cpy)
 	{
@@ -77,7 +78,7 @@ static void	ft_export(t_parser *parser, t_msh **msh)
 				cpy_env->s = ft_strdup(cpy->s);
 			}
 			else
-				addback_cmd((&(*msh)->env), new_cmd(new_lexer(name, WORD)));
+				addback_cmd((&(*msh)->env), new_cmd(new_lexer(cpy->s, WORD)));
 			free(name);
 		}
 		cpy = cpy->next;
@@ -102,8 +103,8 @@ int	ft_exc_export(t_parser *pars, t_msh **msh)
 		}
 		return (0);
 	}
-	else if (pars->next != NULL)
-		return (0);
+//	else if (pars->next != NULL)
+//		return (0);
 	else
 		ft_export(pars, msh);
 	free_tab((*msh)->tab_env);
